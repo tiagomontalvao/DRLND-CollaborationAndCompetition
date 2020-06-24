@@ -64,7 +64,7 @@ class MADDPGAgent():
         return np.clip(target_actions, -1, 1)
 
     def preprocess_tensor_to_critic(self, tensor):
-        """Return tensor with shape (n_agents, batch_size, object_size) to (batch_size, n_agents*object_size)"""
+        """Transform tensor with shape (n_agents, batch_size, object_size) to (batch_size, n_agents*object_size)"""
         if isinstance(tensor, np.ndarray):
             tensor = torch.from_numpy(tensor).float().to(device)
         return tensor.permute(1, 0, 2).reshape(BATCH_SIZE, -1)
@@ -94,7 +94,7 @@ class MADDPGAgent():
 
         Params
         ======
-            experiences (Tuple[torch.Tensor]): tuple of (s, a, r, s', done) tuples
+            experiences (Tuple[torch.Tensor]): tuple of (s, s_full, a, a_full, r, s', done) tuples
             idx_agent (int): index of agent to update
         """
         states, states_full, actions, actions_full, rewards, next_states, dones = experiences

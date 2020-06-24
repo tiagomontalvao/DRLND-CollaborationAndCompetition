@@ -1,6 +1,5 @@
 """Random noise from a normal distribution."""
 
-import copy
 import numpy as np
 
 class NormalNoise:
